@@ -26,9 +26,9 @@ public class Main {
         //printPrimeXml.print(primeGenerator, 100);
         printPrimeJson.print(primeGenerator, 75);
 
-        //for (int i = 1; i<=20; i++) {
-            //System.out.println(primeGenerator.next());
-        //}
+//        for (int i = 1; i<=20; i++) {
+//            System.out.println(primeGenerator.next());
+//        }
 
     }
 }

@@ -14,9 +14,6 @@ public class NumberPrintTxt extends NumberPrint {
 
         public void print(NumberGenerator gen, int n){
 
-//            PrimeNumberGenerator primeGenerator = new PrimeNumberGenerator();
-//            FibNumberGenerator fibGenerator = new FibNumberGenerator();
-
             OutputStream out = null;
             try {
                 out = new FileOutputStream("1.txt");
