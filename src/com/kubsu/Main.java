@@ -23,7 +23,7 @@ public class Main {
         NumberPrintJson printPrimeJson = new NumberPrintJson();
 
         //printPrimeTxt.print(primeGenerator, 55);
-        //printPrimeXml.print(primeGenerator, 100);
+        printPrimeXml.print(fibGenerator, 20);
         printPrimeJson.print(primeGenerator, 75);
 
 //        for (int i = 1; i<=20; i++) {
