@@ -22,7 +22,7 @@ public class NumberPrintJson extends NumberPrint {
     public void print(NumberGenerator gen, int n){
 
         OutputStream out = null;
-
+//try(out = new FileOutputStream("1.json");) создать метод гетТекст где будем передавать наш текст
         try {
             out = new FileOutputStream("1.json");
             out.write(("{\n\t\"numbers\": [\n").getBytes());
@@ -34,15 +34,15 @@ public class NumberPrintJson extends NumberPrint {
             out.write(("\t\t" + gen.next()+"\n\t]\n}").getBytes());
 
         } catch (IOException e){
-            e.printStackTrace();
+        e.printStackTrace();
         } finally {
-            if (in!= null){
-                try{
-                    out.close();
-                } catch(Exception e){
+        if (in!= null){
+            try{
+                out.close();
+            } catch(Exception e){
 
-                }
             }
+        }
         }
 
     }
