@@ -1,45 +1,68 @@
 package com.kubsu;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Collectors;
+
 
 public class Statistica {
-    public static void main(String[] args) {
 
-        Map<String, Integer> statistic = new HashMap<>();
-
-        try (BufferedReader reader = new BufferedReader(new FileReader("1.txt"))) {
-
-            while (reader.ready()) {
-                //String[] massivSlov = reader.readLine().split(" ");
-                //System.out.println(Arrays.toString(massivSlov));
-                for (String word : reader.readLine().split(" ")) {
-                    addWordToStatistic(statistic, word);
+    public static String[] getFileList(String type) {
+        FilenameFilter textFilter = new FilenameFilter() {
+            public boolean accept(File dir, String name) {
+                String lowercaseName = name.toLowerCase();
+                if (lowercaseName.endsWith(".txt")) {
+                    return true;
+                } else {
+                    return false;
                 }
-
             }
+        };
+        String files[] = new File(".").list(textFilter);
+        return files;
+    }
 
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
+    public static Map<String, Integer> countWords(String file) {
+
+        try (
+                FileReader fileReader = new FileReader(file);
+                BufferedReader bufferedReader = new BufferedReader(fileReader)
+        ) {
+            String s = bufferedReader.lines().collect(Collectors.joining(" "));
+            String[] strBuf = s.split("[:;,.\\s]+");
+            for (int i = 0; i < strBuf.length; ++i) {
+                strBuf[i] = strBuf[i].toLowerCase();
+            }
+            Map<String, Integer> map = new HashMap<>();
+            for (int i = 0; i < strBuf.length; ++i) {
+                if (map.containsKey(strBuf[i])) {
+                    map.put(strBuf[i], map.get(strBuf[i]) + 1);
+                } else {
+                    map.put(strBuf[i], 1);
+                }
+            }
+            //System.out.print(map);
+            return map;
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println(e);
+            return null;
         }
-        System.out.println(statistic);
+
     }
 
-    private static void addWordToStatistic(Map<String, Integer> statistic, String word) {
-        if (statistic.containsKey(word)) {
-            int kolvoSlov = statistic.get(word);
-            statistic.put(word, kolvoSlov + 1);
-        } else {
-            statistic.put(word, 1);
+    public static void main(String[] args) {
+        try {
+            String files[] = getFileList("txt");
+            for (String file : files) {
+                Map<String, Integer> map = countWords(file);
+                System.out.println(map);
+            }
+        } catch (Exception e) {
+            System.out.println(e);
         }
     }
-
 }
+
 
